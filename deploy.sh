@@ -10,7 +10,7 @@ COL_BLUE=$ESC_SEQ"34;01m"
 
 # Vars
 DIR_PERSONAL="/var/www/vhosts/personalweb_$USER"
-PROJECTS=("zadarma.com")
+PROJECTS=("zadarma.com" "my.zadarma.com")
 PROJECT_DIR=""
 PROJECT_GIT_PATH=""
 
@@ -54,6 +54,11 @@ do
             PROJECT_GIT_PATH="webcore_zadarma"
             break;
             ;;
+        "my.zadarma.com")
+            PROJECT_DIR="my.zadarma.com"
+            PROJECT_GIT_PATH="project.ss"
+            break;
+            ;;
         *) echo invalid option;;
     esac
 done
@@ -72,10 +77,10 @@ executeCommandWithCatching "mkdir -p $DIR_PERSONAL/webcore/configs"
 executeCommandWithCatching "mkdir -p $DIR_PERSONAL/webcore/webcore_base"
 executeCommandWithCatching "mkdir -p $DIR_PERSONAL/webcore/www"
 executeCommandWithCatching "ln -sf $DIR_PERSONAL/webcore/webcore_base/app.php $DIR_PERSONAL/webcore/app.php"
-executeCommandWithCatching "ln -sf $DIR_PERSONAL/webcore/webcore_base/base $DIR_PERSONAL/webcore/base"
-executeCommandWithCatching "ln -sf $DIR_PERSONAL/webcore/webcore_base/components $DIR_PERSONAL/webcore/components"
-executeCommandWithCatching "ln -sf $DIR_PERSONAL/webcore/webcore_base/extensions $DIR_PERSONAL/webcore/extensions"
-executeCommandWithCatching "ln -sf $DIR_PERSONAL/webcore/webcore_base/vendor $DIR_PERSONAL/webcore/vendor"
+executeCommandWithCatching "ln -sfn $DIR_PERSONAL/webcore/webcore_base/base $DIR_PERSONAL/webcore/base"
+executeCommandWithCatching "ln -sfn $DIR_PERSONAL/webcore/webcore_base/components $DIR_PERSONAL/webcore/components"
+executeCommandWithCatching "ln -sfn $DIR_PERSONAL/webcore/webcore_base/extensions $DIR_PERSONAL/webcore/extensions"
+executeCommandWithCatching "ln -sfn $DIR_PERSONAL/webcore/webcore_base/vendor $DIR_PERSONAL/webcore/vendor"
 echo -e "$COL_GREEN success$COL_RESET"
 
 echo -e -n "$COL_BLUE cloning webcore repository from git...\n\n$COL_RESET"
@@ -112,9 +117,9 @@ fi
 echo -e "\n"
 
 echo -e -n "$COL_BLUE creating symlink for new active project...\t$COL_RESET"
-executeCommandWithCatching "ln -sf $DIR_PERSONAL/webcore/www/$PROJECT_DIR/public_html $DIR_PERSONAL/html"
-executeCommandWithCatching "ln -sf $DIR_PERSONAL/webcore/configs $DIR_PERSONAL/webcore/webcore_base/configs"
-executeCommandWithCatching "ln -sf $DIR_PERSONAL/webcore/www $DIR_PERSONAL/webcore/webcore_base/www"
+executeCommandWithCatching "ln -sfn $DIR_PERSONAL/webcore/www/$PROJECT_DIR/public_html $DIR_PERSONAL/html"
+executeCommandWithCatching "ln -sfn $DIR_PERSONAL/webcore/configs $DIR_PERSONAL/webcore/webcore_base/configs"
+executeCommandWithCatching "ln -sfn $DIR_PERSONAL/webcore/www $DIR_PERSONAL/webcore/webcore_base/www"
 echo -e "$COL_GREEN success$COL_RESET"
 
 echo -e -n "$COL_BLUE creating .env file for additional data...\t$COL_RESET"
